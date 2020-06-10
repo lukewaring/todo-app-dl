@@ -30,6 +30,16 @@ class App extends React.Component {
     })
   }
 
+  toggleTodo = todo => {
+    todo.complete = !todo.complete
+    let todos = this.state.todos
+    let filteredTodos = todos.filter((t) => t.id !== todo.id)
+    
+    this.setState({
+      todos: [...filteredTodos, todo]
+    })
+  }
+
   render() {
     return (
     <div className="App">
@@ -38,7 +48,7 @@ class App extends React.Component {
         <TodoInput addTodo={this.addTodo} />
       </header>
       <br></br>
-        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
+        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
     </div>
   );
   }

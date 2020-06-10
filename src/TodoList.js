@@ -1,14 +1,20 @@
 import React from 'react';
 import Todo from './Todo';
 
-const TodoList = ({ todos, deleteTodo }) => (
-  <div>
-    {todos && todos.length
-      ? todos.map((todo, index) => {
-          return <Todo key={index} todo={todo} deleteTodo={deleteTodo} />;
+class TodoList extends React.Component {
+
+  render() {
+    // console.log(this.props.todos.filter(todo => todo.complete === false))
+    return (
+      <ul className="todo-list-active">
+    {this.props.todos && this.props.todos.length
+      ? this.props.todos.map((todo, index) => {
+          return <Todo key={index} todo={todo} deleteTodo={this.props.deleteTodo} toggleTodo={this.props.toggleTodo} />;
         })
       : "You have no todos. Add one above!"}
-  </div>
-);
+  </ul>
+    )
+  }
+}
 
 export default TodoList;
