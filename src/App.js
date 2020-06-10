@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-
 import React from 'react'
 import './styles/App.css'
 import TodoInput from './components/TodoInput'
@@ -7,7 +5,8 @@ import Todo from './components/Todo'
 
 class App extends React.Component {
   state = {
-    todos: []
+    todos: [],
+    filter: 'All'
   }
 
   nextTodoId = 0
@@ -39,6 +38,22 @@ class App extends React.Component {
     })
   }
 
+  setFilter = statusStr => {
+    this.setState({
+      filter: statusStr
+    })
+  }
+
+  createActiveTodos = () => {
+    let activeTodos = this.state.todos.filter(todo => !todo.complete)
+    return activeTodos
+  }
+
+  createCompletedTodos = () => {
+    let completedTodos = this.state.todos.filter(todo => todo.complete)
+    return completedTodos
+  }
+
   render() {
     return (
     <div className="App">
@@ -48,19 +63,24 @@ class App extends React.Component {
       </header>
       <br></br>
       <ul>
-        <div>{this.state.todos.map((todo) => {
-          if (!todo.complete) {
-          return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
-          }
-        })}
-        </div>
-        <div>{this.state.todos.map((todo) => {
-          if (todo.complete) {
-          return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
-          }
-        })}
-        </div>
+        {this.state.filter === "All" || this.state.filter === "Active" ?
+          (<div>{this.createActiveTodos().map((todo) => {
+            return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
+          })}
+          </div>) :
+          null
+        }
+        {this.state.filter === "All" || this.state.filter === "Completed" ?
+          (<div>{this.createCompletedTodos().map((todo) => {
+            return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
+          })}
+          </div>) :
+          null
+        }
       </ul>
+      <button onClick={() => this.setFilter("All")}>All</button>
+      <button onClick={() => this.setFilter("Active")}>Active</button>
+      <button onClick={() => this.setFilter("Completed")}>Completed</button>
     </div>
     )
   }
