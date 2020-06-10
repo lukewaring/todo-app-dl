@@ -1,14 +1,16 @@
-import React from 'react';
-import './App.css';
-import TodoInput from './TodoInput';
-import TodoList from './TodoList';
+/* eslint-disable array-callback-return */
+
+import React from 'react'
+import './styles/App.css'
+import TodoInput from './components/TodoInput'
+import Todo from './components/Todo'
 
 class App extends React.Component {
   state = {
     todos: []
-  };
+  }
 
-  nextTodoId = 0;
+  nextTodoId = 0
 
   addTodo = input => {
     const newTodo = {
@@ -16,27 +18,24 @@ class App extends React.Component {
       title: input,
       complete: false
     }
-    
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
   }
 
-  deleteTodo = todoToDelete => {
-    let todoText = todoToDelete.target.parentElement.textContent
-    let trimmedTodoText = todoText.substring(0, todoText.length - 1)
+  deleteTodo = todo => {
+    const localTodos = this.state.todos
+    const filteredTodos = localTodos.filter(t => t.id !== todo.id)
     this.setState({
-      todos: this.state.todos.filter(todo => todo.title !== trimmedTodoText)
+      todos: filteredTodos
     })
   }
 
   toggleTodo = todo => {
+    const localTodos = this.state.todos
     todo.complete = !todo.complete
-    let todos = this.state.todos
-    let filteredTodos = todos.filter((t) => t.id !== todo.id)
-    
     this.setState({
-      todos: [...filteredTodos, todo]
+      todos: localTodos
     })
   }
 
@@ -48,10 +47,23 @@ class App extends React.Component {
         <TodoInput addTodo={this.addTodo} />
       </header>
       <br></br>
-        <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
+      <ul>
+        <div>{this.state.todos.map((todo) => {
+          if (!todo.complete) {
+          return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
+          }
+        })}
+        </div>
+        <div>{this.state.todos.map((todo) => {
+          if (todo.complete) {
+          return <Todo key={todo.id} todo={todo} deleteTodo={this.deleteTodo} toggleTodo={this.toggleTodo} />
+          }
+        })}
+        </div>
+      </ul>
     </div>
-  );
+    )
   }
 }
 
-export default App;
+export default App
