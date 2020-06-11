@@ -1,0 +1,26 @@
+.li {
+    list-style-type: none;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 3% auto 3%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: .75%;
+    padding-bottom: .75%;
+}
+
+li > button {
+    justify-self: right;
+    border-style: none;
+    background-color: white;
+}
+
+.completed {
+    color: white;
+    background-color: gray;
+    
+}
+
+.span-completed {
+    text-decoration: line-through;
+}

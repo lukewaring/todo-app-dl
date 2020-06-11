@@ -1,17 +1,14 @@
 import React from 'react';
 
 class TodoInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { input: "" };
-  }
+  state = { input: "" };
 
   updateInput = input => {
     this.setState({ input });
   };
 
   handleAddTodo = () => {
-    this.props.addTodo(this.state.input);
+    this.props.createTodo(this.state.input);
     this.setState({ input: "" });
   };
 

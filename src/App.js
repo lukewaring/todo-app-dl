@@ -5,13 +5,44 @@ import Todo from './components/Todo'
 
 class App extends React.Component {
   state = {
-    todos: [],
+    todos: [
+      {
+        id: 1,
+        title: 'Hit the gym',
+        complete: false
+      },
+      {
+        id: 2,
+        title: 'Pay bills',
+        complete: true
+      },
+      {
+        id: 3,
+        title: 'Meet George',
+        complete: false
+      },
+      {
+        id: 4,
+        title: 'Buy eggs',
+        complete: false
+      },
+      {
+        id: 5,
+        title: 'Read a book',
+        complete: false
+      },
+      {
+        id: 6,
+        title: 'Organize office',
+        complete: false
+      },  
+    ],
     filter: 'All'
   }
 
-  nextTodoId = 0
+  nextTodoId = 7
 
-  addTodo = input => {
+  createTodo = input => {
     const newTodo = {
       id: ++this.nextTodoId,
       title: input,
@@ -60,10 +91,10 @@ class App extends React.Component {
 
   render() {
     return (
-    <div className="App">
+    <div>
       <header className="App-header">
         <h2>My To Do List</h2>
-        <TodoInput addTodo={this.addTodo} />
+        <TodoInput createTodo={this.createTodo} />
       </header>
       <br></br>
       <ul>
@@ -82,7 +113,7 @@ class App extends React.Component {
           null
         }
       </ul>
-      <div>
+      <div className="utilities">
         <button onClick={() => this.setFilter("All")}>All</button>
         <button onClick={() => this.setFilter("Active")}>Active</button>
         <button onClick={() => this.setFilter("Completed")}>Completed</button>
