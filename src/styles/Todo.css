@@ -9,6 +9,10 @@
     padding-bottom: .75%;
 }
 
+li:nth-child(even) {
+    background-color: whitesmoke;
+}
+
 li > button {
     justify-self: right;
     border-style: none;
@@ -17,10 +21,24 @@ li > button {
 
 .completed {
     color: white;
-    background-color: gray;
-    
+    background-color: gray !important;
+}
+
+span:hover {
+    cursor: pointer;
 }
 
 .span-completed {
     text-decoration: line-through;
+}
+
+.checkbox {
+    border-width: 0px;
+    cursor: pointer;
+    opacity: 0.02;
+}
+
+.checkbox:checked {
+    opacity: 1;
+    background-color: white;
 }

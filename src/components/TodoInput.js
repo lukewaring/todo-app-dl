@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/TodoInput.css'
 
 class TodoInput extends React.Component {
   state = { input: "" };
@@ -15,12 +16,12 @@ class TodoInput extends React.Component {
   render() {
     return (
       <div>
-        <input
+        <input className="title-input"
           onChange={e => this.updateInput(e.target.value)}
           value={this.state.input}
           placeholder="Title..."
         />
-        <button onClick={this.handleAddTodo}>
+        <button className="add-btn" onClick={this.handleAddTodo}>
           Add
         </button>
         <br></br>
